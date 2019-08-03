@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+	
+	<head>
+		<script src="util.js"></script>
+		<link rel="stylesheet" type="text/css" href="view.css">
+  		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+  		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		<script src="/socket.io/socket.io.js"></script>
+		 <title> SCRABBLE </title>
+	</head>
+
+
+	 <body>
+	 	<div class="container">
+	 	<div class="row">
+	 	 <br><br><span class="extruded">SCRABBLE!</span><br><br><br><br>
+	 	</div>
+
+	<div class="row"> 	 
+
+	<div class="col-md-7">
+	<div id="wrapper">
+
+		
+
+
+
+		<div><input type="text" id="userName" placeholder="Enter scrabbler name"></div>
+
+		<div>
+			<button type="button" id="submitDetails" class="btn btn-info active" onClick="submitDetails()">Submit</button>
+		</div>
+
+		<div><p id="comment"></p></div>
+
+		<div>
+			<button type="button" id="startGame" class="btn btn-info active" onClick="startGame()">Start Game!</button>
+		</div>
+
+
+
+		 
+		<div class="row">  <div id="boardCon"><table id="board"></table></div> </div>
+
+		<div class="row" id="tilesContainer"> 
+		<div class="col-md-8"> <div id="tilesCon"><table id="tiles"></table><table id="tileScore"></table> </div> </div> 
+		 
+       <div class="col-md-4">
+       	<div class="row"  id="rowTiles">
+		<div id="submit" class="col-md-4"><button type="button" class="btn btn-info active" id="b1" onClick="play()">Play!</button></div>
+		<div id="submit" class="col-md-4"><button type="button" class="btn btn-info active" id="b2" onClick="swap()">Swap</button></div>
+		<div id="submit" class="col-md-4"><button type="button" class="btn btn-info active" id="b3" onClick="pass()">Pass</button></div>
+	</div>
+       </div>
+	</div>
+	</div>
+	</div>
+
+  <div class="col-md-3">
+
+  	<div id="scorePanel">
+
+  <!-- <div class="row" id="scoringRow1">
+	<div class="col-md-6">
+		<div id="numbuh1">Player 1</div>
+	 	<div id="score1">0</div>
+	</div>
+	</div>
+	<div class="row" id="scoringRow2">
+	<div class="col-md-6">
+		<div id="numbuh2">Player 2</div>
+		<div id="score2">0</div>
+	</div>
+</div>
+<div class="row" id="scoringRow3">
+	<div class="col-md-6">
+		<div id="numbuh3">Player 3</div>
+	 	<div id="score3">0</div>
+	</div>
+	</div>
+	<div class="row" id="scoringRow4">
+	<div class="col-md-6">
+		<div id="numbuh4">Player 4</div>
+		<div id="score4">0</div>
+	</div>
+</div> -->
+</div>
+
+	<!-- <div class="row" id="scoringRow2">
+	<div >
+	<div class="col-md-6">
+		<div id="numbuh3">Player 3</div>
+	 	<div id="score3">0</div>
+	</div>
+	<div class="col-md-6">
+		<div id="numbuh4">Player 4</div>
+		<div id="score4">0</div>
+	</div>
+	</div>
+	</div> -->
+
+	<div class="row">		
+		<div id="legends" >
+			<div class="col-md-3" id="l1">3W</div>
+			<div class="col-md-3" id="l2">2W</div>
+			<div class="col-md-3" id="l3">2L</div>
+			<div class="col-md-3" id="l4">3L</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div id="msgBlock"></div>
+	</div>
+
+	</div>
+
+	<div class="col-md-2" id="chat">
+
+		<p id="chatHeader">Chat</p>
+		<div id="messages">
+
+		</div>
+	    <form action="">
+	      <input id="m" autocomplete="off" /><button id="msgButton" class="btn btn-info active">Send</button>
+	    </form>
+
+	</div>
+
+</div>
+	</div>
+		<script>
+			var clientId;
+			var clientName='';
+			var scrabblers=[];
+			var map;
+			var socket = io();
+			// start();
+
+			// socket.emit('chat message', 'sarahhh');
+			// socket.on('storeClientId', function(msg) {
+			// 	document.getElementById('player').innerHTML='Player '+msg["num"];
+			// 	clientId=msg["id"];
+			// 	playerTurn(msg["turn"]);
+   //  		});
+
+			socket.on('disconnectmsg', function(user) {
+				console.log('aa');
+				disconnectMsg(user);
+    		});
+		
+			socket.on('storeClientId', function(id) {
+				clientId=id;
+				scrabblers.push(clientId);
+    		});
+
+    		socket.on('waiting', function(scr) {
+    			console.log('right here');
+    			waitingState();
+    		});
+
+    		socket.on('gameMatch', function(scr) {
+    			console.log('right here baby');
+    			gameMatched(scr);
+    		});
+
+    		socket.on('gameStart', function(scr) {
+    			console.log('yes baby yes');
+    			gameStart(scr);
+    		});
+
+    		socket.on('gameisOn', function(turn) {
+    			gameisOn(turn);
+    		});
+
+    		socket.on('addScrabblers', function(scr) {
+    			addScrabblers(scr);
+    		});
+
+    		socket.on('playerTurn', function(msg){
+				playerTurn(msg);
+    		});
+
+    		socket.on('sendBoard', function(msg){
+    			sendBoard(msg);
+    			wordsValid(true);
+    		});
+
+    		socket.on('scoreUpdate', function(msg){
+    			var sc=scoreUpdate(msg["scoreBonus"]);
+    			score3={};
+    			score3["id"]=msg["id"];
+    			score3["score"]=sc;
+    			socket.emit('sendScore', score3);
+    		});
+
+    		socket.on('sendBoardFalse', function(msg){
+    			wordsNotValid(msg);
+    		});
+
+    		socket.on('scoring', function(msg){
+    			scoring(msg);
+    		});
+
+    		function waitingState() {
+    			document.getElementById('submitDetails').style.visibility = "hidden";
+    			document.getElementById('userName').style.visibility = "hidden";
+    			document.getElementById('comment').innerHTML="Waiting for opponent . . .";
+    		}
+
+    		function gameMatched(scr) {
+
+    			addScrabblers(scr);
+
+    			$('#userName').remove();
+    			$('#submitDetails').remove();
+    			if(scrabblers.length==4)
+    				document.getElementById('comment').innerHTML='Ready to get scrabbled ??<br>You have been matched with '+scrabblers[3];
+    			else
+    				document.getElementById('comment').innerHTML='Ready to get scrabbled ??<br>You have been matched with '+scrabblers[3]+" and "+scrabblers[5];
+    			document.getElementById('startGame').style.visibility = "visible";
+    		}
+
+    		function gameStart(scr) {
+
+    			socket.emit('addScrabblers', scr);
+
+    			$('#userName').remove();
+    			$('#submitDetails').remove();
+    			document.getElementById("startGame").click();
+    		}
+
+    		function addScrabblers(scr) {
+				for(var i=0;i<scr.length;i+=2) {
+    				if(scr[i]==scrabblers[0]) {
+    					scr.splice(i, 2);
+    					break;
+    				}
+    			}
+    			for(var i=0;i<scr.length;i++)
+    				scrabblers[i+2]=scr[i];
+    		}
+
+    		function startGame() {
+    			socket.emit('roomTaken', clientId);
+    		}
+
+    		function gameisOn(turn) {
+    			$('#startGame').remove();
+    			$('#comment').remove();
+    			start(scrabblers);
+    			playerTurn(turn);
+    		}
+
+
+    		function play() {
+    			map=tileValidation();
+    			map["id"]=clientId;
+    			if(map) {
+                    // for(var i=0;i<wrds.length;i++) {
+                    socket.emit('sendWords', map );
+                }
+    		}
+
+    		function swap() {
+    			resetBoard1();
+    			resetTiles();
+    			randomiseTiles();
+    			socket.emit('turn', clientId);
+    		}
+
+    		function pass() {
+    			socket.emit('turn', clientId);
+    		}
+
+    		function submitDetails() {
+	    		var pname=document.getElementById('userName').value;
+
+	    		console.log(pname);
+	    		scrabblers.push(pname);
+
+				// document.location = "localhost:3000" + '/board.html';
+	    		socket.emit('roomPick', {id: clientId, name: pname});
+    		}
+
+    		function disconnectMsg(user) {
+    			document.getElementById('msgBlock').innerHTML=user+' left the game';
+    		}
+
+    		$('form').submit(function(){
+    			var messg=$('#m').val();
+    			if(messg.length>=1) {
+	    			var map={};
+	    			map["id"]=clientId;
+	    			map["msg"]=messg;
+				    socket.emit('chat message', map);
+				    $('#m').val('');
+				}
+				return false;
+			  });
+
+    		socket.on('chat message', function(map){
+			    var div = $("#messages");
+			    div.append($('<p>').text(map["scrabbler"]+": "+map["msg"]));
+    			div.scrollTop(div.prop('scrollHeight'));
+			  });
+
+		</script>
+	
+	</body>
+	
+</html>

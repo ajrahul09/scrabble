@@ -1,0 +1,363 @@
+body {
+    background: linear-gradient(to bottom right,LightSeaGreen, cadetblue,mediumturquoise,cyan);  
+
+}
+
+::-webkit-scrollbar { 
+    display: none; 
+}
+
+#wrapper {
+			/*position: relative;
+			left: 150px;*/
+            align-content: center;
+            /*position: relative;*/
+            width: 500pt;
+            height: 550pt;
+}
+#scoringRow1 {
+    padding-bottom: 20px;
+}
+#scoringRow2 {
+    padding-bottom: 20px;
+}
+#scoringRow3 {
+    padding-bottom: 20px;
+}
+#scoringRow4 {
+    padding-bottom: 20px;
+}
+
+#scorePanel {
+    position: relative;
+    left: 20px;
+    visibility: hidden;
+    text-shadow: 2px 2px 4px #008080;
+}
+
+#score1 {
+    /*position: relative;
+    right: 115pt;
+    bottom: 500pt;*/
+    padding: 10px;
+	width: 150px;
+	height: 40px;
+	border: 1pt solid #006400;
+	/*float: left;*/
+}
+#score2 {
+    /*position: relative;
+    right: 115pt;
+    bottom: 400pt;*/
+    padding: 10px;
+	width: 150px;
+	height: 40px;
+	border: 1pt solid #006400;
+	/*float: left;*/
+}
+#score3 {
+    /*position: relative;
+    right: 115pt;
+    bottom: 500pt;*/
+    padding: 10px;
+    width: 150px;
+    height: 40px;
+    border: 1pt solid #006400;
+    /*float: left;*/
+}
+#score4 {
+    /*position: relative;
+    right: 115pt;
+    bottom: 500pt;*/
+    padding: 10px;
+    width: 150px;
+    height: 40px;
+    border: 1pt solid #006400;
+    /*float: left;*/
+}
+/*#numbuh1 {
+    position: relative;
+    right: 115pt;
+    bottom: 500pt;
+}*/
+/*#numbuh2 {
+    position: relative;
+    right: 115pt;
+    bottom: 400pt;
+*/}
+#boardCon {
+            border: 1pt solid black;
+            display: inline-block;
+            width: 650pt;
+            height: 650pt;
+            /*float: left;*/
+}
+#board {
+            border-collapse: collapse;
+            box-shadow: 15px 15px 10px #008080;
+}
+#legends {
+    position: relative;
+    left: 15px;
+    padding-top: 60px;
+    visibility: hidden;
+}
+#notValid {
+    border: 1pt solid black;
+}
+#l1 {
+    padding: 5px;
+    margin-right: 15px;
+    width: 28pt;
+    height: 28pt;
+    background-color: #FF3333;
+    box-shadow: 5px 5px 2px #008080;
+}
+#l2 {
+    margin-right: 15px;
+    padding: 5px;
+    width: 28pt;
+    height: 28pt;
+    background-color: #FF9999;
+            box-shadow: 5px 5px 2px #008080;
+}
+#l3 {
+    margin-right: 15px;
+    padding: 5px;
+    width: 28pt;
+    height: 28pt;
+    background-color: #ADD8E6;
+            box-shadow: 5px 5px 2px #008080;
+}
+#l4 {
+    padding: 5px;
+    width: 28pt;
+    height: 28pt;
+    background-color: #60AFFE;
+            box-shadow: 5px 5px 2px #008080;
+}
+#rowTiles {
+    visibility: hidden;
+    position: relative;
+    right: 100px;
+}
+#tilesContainer {
+    padding-top: 50px;
+}
+#msgBlock {
+    margin-top: 75px;
+    width: 220px;
+    height: 100px;
+    visibility: hidden;
+    /*border: 1pt solid black;*/
+    color: #00688B;
+    font-size: 13pt;
+    font-family: Helvetica Arial;
+}
+#player {
+/*    margin-bottom: 30px;
+    width: 175px;
+    height: 50px;
+    color: #006600;
+    font-family: proxima-nova-1, proxima-nova-2, 'Helvetica Neue', Arial, sans-serif;*/
+    font-size: 24px;
+    font-weight: bold;
+
+  color:#006600;
+  /*font-family: PressStart;*/
+  /*font-size: 0.8em;*/
+   -webkit-animation: neon4 1.5s ease-in-out infinite alternate;
+  -moz-animation: neon4 1.5s ease-in-out infinite alternate;
+  animation: neon4 1.5s ease-in-out infinite alternate;
+    /*border: 1pt solid black;*/
+}
+
+@-webkit-keyframes neon4 {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #B6FF00, 0 0 70px #B6FF00, 0 0 80px #B6FF00, 0 0 100px #B6FF00, 0 0 150px #B6FF00;
+  }
+  to {
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #B6FF00, 0 0 35px #B6FF00, 0 0 40px #B6FF00, 0 0 50px #B6FF00, 0 0 75px #B6FF00;
+  }
+}
+@keyframes neon4 {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #B6FF00, 0 0 70px #B6FF00, 0 0 80px #B6FF00, 0 0 100px #B6FF00, 0 0 150px #B6FF00;
+  }
+  to {
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #B6FF00, 0 0 35px #B6FF00, 0 0 40px #B6FF00, 0 0 50px #B6FF00, 0 0 75px #B6FF00;
+  }
+}
+
+td[id^='cell'] {
+            width: 30pt;
+            height: 30pt;
+            border: 1pt solid black;
+            font-size: 12pt;
+            font-weight: bold;
+            color: black;
+}
+td[id^='cell']:hover {
+    /*background-color: #FFF;*/
+    background-color: #8B3E2F !important;
+}
+
+#numbuh1 {
+    width: 90px;
+    color: #0D4F8B;
+    font-weight: bold;
+    margin-left: 13px;
+}
+#numbuh2 {
+    width: 90px;
+    color: #0D4F8B;
+    font-weight: bold;
+    margin-left: 13px;
+}
+#numbuh3 {
+    width: 90px;
+    color: #0D4F8B;
+    font-weight: bold;
+    margin-left: 13px;
+}
+#numbuh4 {
+    width: 90px;
+    color: #0D4F8B;
+    font-weight: bold;
+    margin-left: 13px;
+}
+#b1 {
+    border-color: teal; 
+}
+#b2 {
+    border-color: teal;  
+}
+#b3 {
+    border-color: teal;  
+}
+#tiles {
+            border-collapse: collapse;
+            font-size: 10pt;
+            font-weight: bold;
+            color: black;
+            box-shadow: 10px 10px 5px #008080;
+}
+#tileScore {
+            border-collapse: collapse;
+}
+td[id^='tile'] {
+            width: 28pt;
+            height: 28pt;
+            border: 1pt solid black;
+}
+[id^='tile'] td {
+            font-size: 12pt;
+
+}
+/*#submit {
+            float: right;
+            /*left:0;*/
+}*/
+#play {
+
+            /*position:absolute;*/
+            bottom:0;
+}
+
+body {
+            background-image: "parchment.jpg";
+            background-size: 100% auto;
+            text-align: center;
+}
+
+.extruded{
+
+    color: #822C07;
+    font-family: proxima-nova-1, proxima-nova-2, 'Helvetica Neue', Arial, sans-serif; /* the original site doesn't use the @font-face attribute */
+    font-size: 48px;
+    font-weight: bold;
+    text-shadow: #000 1px 1px, #000 2px 2px, #000 3px 3px;
+    position: relative;
+    -moz-transition: all 0.3s ease-out; /* FF3.7+ */
+       -o-transition: all 0.3s ease-out; /* Opera 10.5 */
+  -webkit-transition: all 0.3s ease-out; /* Saf3.2+, Chrome */
+          transition: all 0.3s ease-out;
+}
+
+.extruded:hover {
+    color: #FFF;
+    text-shadow: #6B3C05 1px 1px, #6B3C05 2px 2px, #6B3C05 3px 3px, #6B3C05 4px 4px, #6B3C05 5px 5px, #6B3C05 6px 6px;
+    left: -6px;
+    top: -6px;
+
+}
+
+form { padding: 3px; position: relative; top: 50px; width: 100%; }
+      form input { border: 0; padding: 5px; width: 100%; margin-right: 30%; }
+      form button { width: 29%; background: rgb(130, 224, 255); border: none; padding: 5px; margin-top: 10px; }
+      #messages { list-style-type: none; margin: 0; padding: 0; color: #FFF; overflow: scroll; height: 550px;}
+      #messages p { padding: 5px 10px; margin-top: 3px; }
+      #messages p:nth-child(odd) { background: #104E8B; }
+      #messages p:nth-child(even) { background: #1C86EE; }
+
+#chat {
+    padding-left: 30px;
+    border-left: 2px solid #0D4F8B;
+    visibility: hidden;
+}
+
+#chatHeader {
+    font-size: 24px;
+    color: #0D4F8B;
+    font-weight: bold;
+    font-family: proxima-nova-1, proxima-nova-2, 'Helvetica Neue', Arial, sans-serif;
+    text-shadow: 2px 2px 4px #008080;
+}   
+
+#startGame {
+    visibility: hidden;
+}   
+
+#userName {
+    position: relative;
+    left: 40%;
+    top: 200pt;
+    padding: 10px;
+    margin-bottom: 10pt; 
+  border: none;
+  border-bottom: solid 2px #c9c9c9;
+  transition: border 0.3s;
+}
+#userName input[type="text"]:focus,
+#userName input[type="text"].focus {
+  border-bottom: solid 2px #969696;
+}
+
+#submitDetails {
+    position: relative;
+    left: 40%;
+    top: 200pt;
+    border-color: teal;
+}
+
+#comment {
+    position: relative;
+    left: 40%;
+    top: 150pt;
+    color: #008080;
+    font-size: 15pt;
+    font-family: Helvetica Arial;
+}
+
+#startGame {
+    position: relative;
+    left: 40%;
+    top: 200pt;
+    border-color: teal;
+}
+
+#msgButton {
+    width: 50pt;
+    padding: 5px;
+    border-color: teal;
+}
